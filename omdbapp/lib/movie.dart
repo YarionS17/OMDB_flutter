@@ -9,6 +9,7 @@ class Movie {
   final String type;
   String poster;
 
+  //Movie constructer met default poster als de movie geen poster heeft
   Movie(this.title, this.year, this.imdbID, this.type, this.poster) {
     if (poster == "N/A") {
       poster = "https://media.comicbook.com/files/img/default-movie.png";
@@ -23,6 +24,7 @@ class ApiService {
       's': searchEntry,
       'apikey': 'c1a81a38',
     }));
+    //Films uit de json halen en in een lijst zetten
     var jsonData = jsonDecode(response.body);
     for (var i in jsonData['Search']) {
       final movie = Movie(

@@ -23,7 +23,6 @@ class _MainState extends ConsumerState {
   Widget build(BuildContext context) {
     final movieList = ref.watch(movieProvider);
     return Scaffold(
-      
         appBar: AppBar(
           title: const Text('Sample Code'),
         ),
@@ -56,60 +55,35 @@ class _MainState extends ConsumerState {
                             crossAxisSpacing: 0,
                             children: List.generate(data.length, (index) {
                               return Card(
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => SecondRoute(
-                                              movie: data[index])),
-                                    );
-                                  },
-                                  
-                                    child: Column(
-                                      children: <Widget>[
-                                        
-                                    Container(
-                                      
-                                      alignment: Alignment.center,
-                                      margin: const EdgeInsets.all(10.0),
-                                      height: 130,
-
-                                      child: 
-                                      Image.network(data[index].poster, width: double.infinity, fit: BoxFit.fitWidth,)
-                                      
-                                    ),
-                                    Text(data[index].title)
-                                    
-                                  ],)
-                                  
-
-                                  
-                                )
-                              );
+                                  //Om de movie posters clickable te maken
+                                  child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SecondRoute(
+                                                  movie: data[index])),
+                                        );
+                                      },
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                              alignment: Alignment.center,
+                                              margin:
+                                                  const EdgeInsets.all(10.0),
+                                              //TODO: Onderzoek doen om de aspect ratio, bij kleinere schermen bottom pixels overflow
+                                              height: 130,
+                                              child: Image.network(
+                                                data[index].poster,
+                                                width: double.infinity,
+                                                fit: BoxFit.fitWidth,
+                                              )),
+                                          Text(data[index].title)
+                                        ],
+                                      )));
                             }));
-                        // return ListView.builder(
-                        //   itemCount: data.length,
-                        //   itemBuilder: (context, index) {
-                        //     return ListTile(
-                        //       onTap: () {
-                        //                 Navigator.push(
-                        //                   context,
-                        //                   MaterialPageRoute(
-                        //                       builder: (context) => SecondRoute(
-                        //                           movie: data[index])),
-                        //                 );
-                        //               },
-                        //       title: Column(
-                        //         children: <Widget>[
-                        //           Image.network(data[index].poster),
-                        //           Text(data[index].title)
-                        //         ],
-                        //       ),
-                        //     );
-                        //   },
-                        // );
                       },
+                      //Laat error zien als de searchbar leeg is, weet niet echt waarom
                       error: ((error, stackTrace) => Text(error.toString())),
                       loading: (() {
                         return const Center(
